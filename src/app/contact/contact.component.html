@@ -1,0 +1,15 @@
+<ActionBar title="Contact Us" class="action-bar">
+</ActionBar>
+<StackLayout class="page">
+  <GridLayout class="p-5 border" rows="auto *" columns="*">
+    <StackLayout row="0">
+        <StackLayout class="p-10 border">
+            <StackLayout>
+                <Label class="h2" text="Contact Information"></Label>
+                <Label class="m-25 body" [text]="contactInfo" textWrap="true"></Label>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+  </GridLayout>
+    <Label *ngIf="errMess" textWrap="true" [text]="'Error: ' + errMess"></Label>
+</StackLayout>
