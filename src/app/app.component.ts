@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
 import { filter } from "rxjs/operators";
+import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 import * as app from "tns-core-modules/application";
 
 @Component({
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
 
     constructor(
       private router: Router,
-      private routerExtensions: RouterExtensions
+      private routerExtensions: RouterExtensions,
+      private fonticon: TNSFontIconService
     ) {
         // Use the component constructor to inject services.
     }

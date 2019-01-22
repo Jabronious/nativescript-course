@@ -1,25 +1,25 @@
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
         <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
             <GridLayout row="0" class="sidedrawer-header" rows="auto" columns="100, *">
-                    <Image row="0" col="0" src="~/images/logo.png" class="sidedrawer-header-image"></Image>
+                    <Image row="0" col="0" src="~/app/images/logo.png" class="sidedrawer-header-image"></Image>
                     <Label row="0" col="1" text="Ristorante Con Fusion" class="sidedrawer-header-brand" textWrap="true"></Label>
             </GridLayout>
             <ScrollView row="1">
                 <StackLayout class="sidedrawer-content">
                   <GridLayout columns="*, auto" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/home')" (tap)="onNavItemTap('/home')">
-                      <Label col="0" text="&#xf015;" class="sidedrawer-list-item-text fa"></Label>
+                      <Label col="0" [text]="'fa-home' | fonticon" class="sidedrawer-list-item-text fa"></Label>
                       <Label col="1" text="Home" class="sidedrawer-list-item-text"></Label>
                   </GridLayout>
-                  <GridLayout columns="*, auto" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/aboutus')" (tap)="onNavItemTap('/aboutus')">
-                      <Label col="0" text="&#xf05a;" class="sidedrawer-list-item-text fa"></Label>
+                  <GridLayout columns="*, auto" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/about')" (tap)="onNavItemTap('/about')">
+                      <Label col="0" [text]="'fa-info-circle' | fonticon" class="sidedrawer-list-item-text fa"></Label>
                       <Label col="1" text="About Us" class="sidedrawer-list-item-text"></Label>
                   </GridLayout>
                   <GridLayout columns="*, auto" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/menu')" (tap)="onNavItemTap('/menu')">
-                      <Label col="0" text="&#xf03a;" class="sidedrawer-list-item-text fa"></Label>
+                      <Label col="0" [text]="'fa-list' | fonticon" class="sidedrawer-list-item-text fa"></Label>
                       <Label col="1" text="Menu" class="sidedrawer-list-item-text"></Label>
                   </GridLayout>
-                  <GridLayout columns="*, auto" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/contactus')" (tap)="onNavItemTap('/contactus')">
-                      <Label col="0" text="&#xf2bb;" class="sidedrawer-list-item-text fa"></Label>
+                  <GridLayout columns="*, auto" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/contact')" (tap)="onNavItemTap('/contact')">
+                      <Label col="0" [text]="'fa-address-card' | fonticon" class="sidedrawer-list-item-text fa"></Label>
                       <Label col="1" text="Contact Us" class="sidedrawer-list-item-text"></Label>
                   </GridLayout>
                 </StackLayout>
