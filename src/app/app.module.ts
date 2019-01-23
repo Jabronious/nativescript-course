@@ -5,6 +5,8 @@ import { NativeScriptHttpModule } from "nativescript-angular/http";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -15,6 +17,8 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { ReservationModalComponent } from "./reservationmodal/reservationmodal.component";
 
 import { DishService } from './services/dish.service';
 import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
@@ -41,6 +45,8 @@ import { baseURL } from './shared/baseurl';
       HttpClientModule,
       NativeScriptUISideDrawerModule,
       NativeScriptUIListViewModule,
+      NativeScriptFormsModule,
+      ReactiveFormsModule,
       TNSFontIconModule.forRoot({
   			'fa': './fonts/font-awesome.css'
   		})
@@ -52,7 +58,9 @@ import { baseURL } from './shared/baseurl';
         HomeComponent,
         ContactComponent,
         AboutComponent,
-        FavoritesComponent
+        FavoritesComponent,
+        ReservationComponent,
+        ReservationModalComponent
     ],
     providers: [
         {provide: 'baseURL', useValue: baseURL},
@@ -64,7 +72,8 @@ import { baseURL } from './shared/baseurl';
     ],
     schemas: [
         NO_ERRORS_SCHEMA
-    ]
+    ],
+    entryComponents: [ReservationModalComponent],
 })
 /*
 Pass your application module to the bootstrapModule function located in main.ts to start your app

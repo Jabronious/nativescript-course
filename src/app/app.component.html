@@ -26,6 +26,10 @@
                       <Label col="0" [text]="'fa-heart' | fonticon" class="sidedrawer-list-item-text fa"></Label>
                       <Label col="1" text="My Favorites" class="sidedrawer-list-item-text"></Label>
                   </GridLayout>
+                  <GridLayout columns="*, auto" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/reservation')" (tap)="onNavItemTap('/reservation')">
+                      <Label col="0" [text]="'fa-cutlery' | fonticon" class="sidedrawer-list-item-text fa"></Label>
+                      <Label col="1" text="Reserve Table" class="sidedrawer-list-item-text"></Label>
+                  </GridLayout>
                 </StackLayout>
             </ScrollView>
         </GridLayout>
