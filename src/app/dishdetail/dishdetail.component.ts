@@ -9,6 +9,8 @@ import { FavoriteService } from '../services/favorite.service';
 import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 import * as Toast from "nativescript-toast";
 import { action } from "ui/dialogs";
+import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
+import { CommentComponent } from "../comment/comment.component";
 
 @Component({
   selector: 'app-dishdetail',
@@ -30,6 +32,8 @@ export class DishdetailComponent implements OnInit {
     private dishservice: DishService,
     private route: ActivatedRoute,
     private routerExtensions: RouterExtensions,
+    private modalService: ModalDialogService,
+    private vcRef: ViewContainerRef,
     @Inject('baseURL') private baseURL
   ) {  }
 
@@ -60,20 +64,35 @@ export class DishdetailComponent implements OnInit {
     this.routerExtensions.back();
   }
 
-  dishActions(): void {
+  createAction() {
     let options = {
-        title: "Dish Actions",
-        cancelButtonText: "Cancel",
-        actions: ["Add to Favorites", "Add Comment"]
+      title: "Dish Actions",
+      cancelButtonText: "Cancel",
+      actions: ["Add to Favorites", "Add comment"]
     };
-
-    action(options).then((result) => {
-        if("Add to Favorites" === result) {
-          this.addToFavorites()
-        } else {
-          console.log(result);
-        }
+    action(options).then(result => {
+      if (result === "Add to Favorites") {
+        this.addToFavorites();
+      } else {
+        console.log('Adding comment');
+        this.createModalView();
+      }
     });
   }
 
+  createModalView() {
+    let options: ModalDialogOptions = {
+        viewContainerRef: this.vcRef,
+        fullscreen: false
+    };
+
+    this.modalService.showModal(CommentComponent, options)
+        .then((result: Comment) => {
+          this.dish.comments.push(result);
+          this.numcomments = this.dish.comments.length;
+          let total = 0;
+          this.dish.comments.forEach((comment: Comment) => total += comment.rating);
+          this.avgstars = (total/this.numcomments).toFixed(2);
+        });
+  }
 }
