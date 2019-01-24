@@ -73,7 +73,9 @@ import { baseURL } from './shared/baseurl';
     schemas: [
         NO_ERRORS_SCHEMA
     ],
-    entryComponents: [ReservationModalComponent],
+    entryComponents: [
+      ReservationModalComponent
+    ],
 })
 /*
 Pass your application module to the bootstrapModule function located in main.ts to start your app

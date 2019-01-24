@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewContainerRef } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { DishService } from '../services/dish.service';
@@ -8,6 +8,7 @@ import { switchMap } from 'rxjs/operators';
 import { FavoriteService } from '../services/favorite.service';
 import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 import * as Toast from "nativescript-toast";
+import { action } from "ui/dialogs";
 
 @Component({
   selector: 'app-dishdetail',
@@ -58,4 +59,21 @@ export class DishdetailComponent implements OnInit {
   goBack(): void {
     this.routerExtensions.back();
   }
+
+  dishActions(): void {
+    let options = {
+        title: "Dish Actions",
+        cancelButtonText: "Cancel",
+        actions: ["Add to Favorites", "Add Comment"]
+    };
+
+    action(options).then((result) => {
+        if("Add to Favorites" === result) {
+          this.addToFavorites()
+        } else {
+          console.log(result);
+        }
+    });
+  }
+
 }
