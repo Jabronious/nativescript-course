@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
 import { filter } from "rxjs/operators";
-import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 import * as app from "tns-core-modules/application";
+import { login, LoginResult } from "ui/dialogs";
+import { getString, setString } from "application-settings";
+
 
 @Component({
     moduleId: module.id,
@@ -17,8 +19,7 @@ export class AppComponent implements OnInit {
 
     constructor(
       private router: Router,
-      private routerExtensions: RouterExtensions,
-      private fonticon: TNSFontIconService
+      private routerExtensions: RouterExtensions
     ) {
         // Use the component constructor to inject services.
     }
@@ -49,5 +50,24 @@ export class AppComponent implements OnInit {
 
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.closeDrawer();
+    }
+
+    displayLoginDialog() {
+      let options = {
+        title: "Login",
+        message: "Enter Your Credentials",
+        userName: getString("userName", ""),
+        password: getString("password", ""),
+        okButtonText: "Login",
+        cancelButtonText: "Cancel"
+      }
+
+      login(options)
+        .then((loginResult: LoginResult) => {
+          setString("userName", loginResult.userName);
+          setString("password", loginResult.password);
+        },
+        () => { console.log("Login Cancelled")
+      });
     }
 }
