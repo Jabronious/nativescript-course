@@ -1,4 +1,17 @@
 <ActionBar title="Reserve Table" class="action-bar">
+  <!--
+    Use the NavigationButton as a side-drawer button in Android
+    because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!--
+    Use the ActionItem for IOS with position set to left. Using the
+    NavigationButton as a side-drawer button in iOS is not possible,
+    because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
 </ActionBar>
 <ScrollView orientation="vertical" tkMainContent class="page">
     <GridLayout class="m-5" rows="auto auto auto auto" columns="*, *" [formGroup]="reservation">

@@ -1,4 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import * as app from "application";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 @Component({
   selector: 'app-contact',
@@ -17,4 +19,8 @@ export class ContactComponent implements OnInit {
       "HONG KONG\nTel: +852 1234 5678\nFax: +852 8765 4321\nEmail:confusion@food.net"
   }
 
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
+  }
 }

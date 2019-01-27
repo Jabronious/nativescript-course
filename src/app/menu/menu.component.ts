@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
+import * as app from "application";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 @Component({
   selector: 'app-menu',
@@ -21,4 +23,8 @@ export class MenuComponent implements OnInit {
         errmess => this.errMess = <any>errmess);
   }
 
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
+  }
 }
