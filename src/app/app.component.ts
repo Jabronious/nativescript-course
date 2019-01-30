@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
@@ -6,6 +6,7 @@ import { filter } from "rxjs/operators";
 import * as app from "tns-core-modules/application";
 import { login, LoginResult } from "ui/dialogs";
 import { getString, setString } from "application-settings";
+import { PlatformService } from './services/platform.service';
 
 
 @Component({
@@ -13,13 +14,14 @@ import { getString, setString } from "application-settings";
     selector: "ns-app",
     templateUrl: "app.component.html"
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     private _activatedUrl: string;
     private _sideDrawerTransition: DrawerTransitionBase;
 
     constructor(
       private router: Router,
-      private routerExtensions: RouterExtensions
+      private routerExtensions: RouterExtensions,
+      private platformservice: PlatformService
     ) {
         // Use the component constructor to inject services.
     }
@@ -31,6 +33,18 @@ export class AppComponent implements OnInit {
         this.router.events
         .pipe(filter((event: any) => event instanceof NavigationEnd))
         .subscribe((event: NavigationEnd) => this._activatedUrl = event.urlAfterRedirects);
+        this.platformservice.printPlatformInfo();
+        this.platformservice.startMonitoringNetwork()
+        .subscribe((message: string) => {
+          console.log(message);
+
+        });
+    }
+
+    ngOnDestroy() {
+
+      this.platformservice.stopMonitoringNetwork();
+
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
