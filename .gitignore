@@ -5,3 +5,5 @@ tags
 app/**/*.js
 app/global.d.tags
 platforms
+**/.DS_Store
+.DS_Store

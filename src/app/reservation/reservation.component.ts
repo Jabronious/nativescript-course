@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { TextField } from 'ui/text-field';
 import { Switch } from 'ui/switch';
 import { Validators, FormBuilder, FormGroup} from '@angular/forms';
@@ -6,6 +6,11 @@ import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/mod
 import { ReservationModalComponent } from "../reservationmodal/reservationmodal.component";
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { View } from 'ui/core/view';
+import { Animation, AnimationDefinition } from "ui/animation";
+import * as enums from 'ui/enums';
+import { ReservationService } from '../services/reservation.service';
+import { Page } from 'ui/page';
 
 @Component({
   selector: 'app-reservation',
@@ -15,11 +20,16 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 export class ReservationComponent implements OnInit {
 
   reservation: FormGroup;
+  content: View;
+  formSubmitted: boolean = false;
 
   constructor(
+    private reservationservice: ReservationService,
     private formBuilder: FormBuilder,
     private modalService: ModalDialogService,
-    private vcRef: ViewContainerRef) {
+    private vcRef: ViewContainerRef,
+    private page: Page
+  ) {
 
     this.reservation = this.formBuilder.group({
       guests: 3,
@@ -60,6 +70,17 @@ export class ReservationComponent implements OnInit {
 
   onSubmit() {
     console.log(JSON.stringify(this.reservation.value));
+    this.content = <View>this.page.getViewById<View>("reservation");
+    this.animateInOut(this.content, 0, 0 , 0.5).then(() => {
+      this.formSubmitted = this.reservationservice.addReservation(this.reservation.value);
+      this.animateInOut(this.content, 1, 1, 1).then(() => {
+
+      }).catch((e) => {
+        console.log(e.message);
+      });
+    }).catch((e) => {
+      console.log(e.message);
+    })
   }
 
   createModalView(args) {
@@ -80,5 +101,21 @@ export class ReservationComponent implements OnInit {
                 }
             });
 
+    }
+
+    animateInOut(view: View, x: number, y: number, opacity:number): Promise<any> {
+      let definitions = new Array<AnimationDefinition>();
+      let animation: AnimationDefinition = {
+        target: view,
+        scale: { x: x, y: y },
+        opacity: opacity,
+        duration: 500,
+        curve: enums.AnimationCurve.easeIn
+      };
+
+      definitions.push(animation);
+      let animationSet = new Animation(definitions);
+
+      return animationSet.play();
     }
 }

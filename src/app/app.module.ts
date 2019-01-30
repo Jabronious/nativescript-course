@@ -27,6 +27,7 @@ import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { FavoriteService } from './services/favorite.service';
 import { CouchbaseService } from './services/couchbase.service';
+import { ReservationService } from './services/reservation.service';
 
 import { baseURL } from './shared/baseurl';
 
@@ -72,7 +73,8 @@ import { baseURL } from './shared/baseurl';
         PromotionService,
         LeaderService,
         FavoriteService,
-        CouchbaseService
+        CouchbaseService,
+        ReservationService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

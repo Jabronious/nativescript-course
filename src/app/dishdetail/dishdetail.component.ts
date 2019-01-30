@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { DishService } from '../services/dish.service';
@@ -6,7 +6,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { switchMap } from 'rxjs/operators';
 import { FavoriteService } from '../services/favorite.service';
-import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 import * as Toast from "nativescript-toast";
 import { action } from "ui/dialogs";
 import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
@@ -38,14 +37,12 @@ export class DishdetailComponent implements OnInit {
 
   constructor (
     private favoriteservice: FavoriteService,
-    private fonticon: TNSFontIconService,
     private dishservice: DishService,
     private route: ActivatedRoute,
     private routerExtensions: RouterExtensions,
     private modalService: ModalDialogService,
     private vcRef: ViewContainerRef,
-    private page: Page,
-    @Inject('baseURL') private baseURL
+    private page: Page
   ) {  }
 
   ngOnInit() {
