@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { DishService } from '../services/dish.service';
@@ -16,6 +16,8 @@ import { Animation, AnimationDefinition } from "ui/animation";
 import { Color } from 'color';
 import { SwipeGestureEventData, SwipeDirection } from 'ui/gestures';
 import * as enums from 'ui/enums';
+import * as SocialShare from 'nativescript-social-share';
+import { ImageSource, fromUrl } from "image-source";
 
 @Component({
   selector: 'app-dishdetail',
@@ -42,7 +44,8 @@ export class DishdetailComponent implements OnInit {
     private routerExtensions: RouterExtensions,
     private modalService: ModalDialogService,
     private vcRef: ViewContainerRef,
-    private page: Page
+    private page: Page,
+    @Inject('baseURL') private baseURL
   ) {  }
 
   ngOnInit() {
@@ -58,6 +61,16 @@ export class DishdetailComponent implements OnInit {
         this.avgstars = (total/this.numcomments).toFixed(2);
       },
       errmess => { this.dish = null; this.errMess = <any>errmess; });
+  }
+
+  socialShare() {
+      let image: ImageSource;
+
+      fromUrl(this.baseURL + this.dish.image)
+        .then((img: ImageSource) => {
+          image = img;
+          SocialShare.shareImage(image, "How would you like to share this image?")
+        }).catch(() => { console.log('Error loading image'); });
   }
 
   onSwipe(args: SwipeGestureEventData) {
@@ -166,11 +179,13 @@ export class DishdetailComponent implements OnInit {
     let options = {
       title: "Dish Actions",
       cancelButtonText: "Cancel",
-      actions: ["Add to Favorites", "Add comment"]
+      actions: ["Add to Favorites", "Add comment", "Social Sharing"]
     };
     action(options).then(result => {
       if (result === "Add to Favorites") {
         this.addToFavorites();
+      } else if(result === "Social Sharing") {
+        this.socialShare();
       } else {
         console.log('Adding comment');
         this.createModalView();

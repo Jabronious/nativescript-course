@@ -15,13 +15,13 @@
 </ActionBar>
 <StackLayout class="page">
   <GridLayout class="p-5 border" rows="auto *" columns="*">
-    <StackLayout row="0">
-        <StackLayout class="p-10 border">
-            <StackLayout>
-                <Label class="h2" text="Contact Information"></Label>
-                <Label class="m-25 body" [text]="contactInfo" textWrap="true"></Label>
-            </StackLayout>
-        </StackLayout>
+    <StackLayout row="0" class="p-10 border">
+      <Label class="h2" text="Contact Information"></Label>
+      <Label class="m-25 body" [text]="contactInfo" textWrap="true"></Label>
+      <StackLayout row="1" orientation="horizontal" rows="*" coulmns="*, *" class="m-t-20">
+          <Button row="0" col="0" [text]="('fa-phone' | fonticon) + ' Call'" class="btn btn-rounded-sm btn-outline no-border fa "></Button>
+          <Button row="0" col="1" [text]="('fa-envelope-o' | fonticon) + ' Email'" class="btn btn-rounded-sm btn-outline no-border fa" (tap)="sendEmail()"></Button>
+      </StackLayout>
     </StackLayout>
   </GridLayout>
     <Label *ngIf="errMess" textWrap="true" [text]="'Error: ' + errMess"></Label>
