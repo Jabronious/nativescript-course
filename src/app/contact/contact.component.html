@@ -19,7 +19,7 @@
       <Label class="h2" text="Contact Information"></Label>
       <Label class="m-25 body" [text]="contactInfo" textWrap="true"></Label>
       <StackLayout row="1" orientation="horizontal" rows="*" coulmns="*, *" class="m-t-20">
-          <Button row="0" col="0" [text]="('fa-phone' | fonticon) + ' Call'" class="btn btn-rounded-sm btn-outline no-border fa "></Button>
+          <Button row="0" col="0" [text]="('fa-phone' | fonticon) + ' Call'" class="btn btn-rounded-sm btn-outline no-border fa" (tap)="callRestaurant()"></Button>
           <Button row="0" col="1" [text]="('fa-envelope-o' | fonticon) + ' Email'" class="btn btn-rounded-sm btn-outline no-border fa" (tap)="sendEmail()"></Button>
       </StackLayout>
     </StackLayout>

@@ -3,6 +3,7 @@ import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 import * as Email from 'nativescript-email';
+import * as phone from 'nativescript-phone';
 
 @Component({
   selector: 'app-contact',
@@ -37,6 +38,12 @@ export class ContactComponent implements OnInit {
         }
       });
   }
+
+  callRestaurant() {
+    console.log('Make phone call');
+    phone.dial("212-555-1234",false);
+  }
+
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();

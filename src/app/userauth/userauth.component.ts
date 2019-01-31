@@ -7,6 +7,7 @@ import * as camera from 'nativescript-camera';
 import { Image } from 'ui/image';
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as imagepicker from "nativescript-imagepicker";
 
 @Component({
     moduleId: module.id,
@@ -40,6 +41,19 @@ export class UserAuthComponent implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    getFromLibrary() {
+      let context = imagepicker.create({
+        mode: "single"
+      });
+      context.authorize()
+        .then(() => {
+          return context.present();
+        }).then((selection) => {
+          let image = <Image>this.page.getViewById<Image>("myPicture");
+          image.src = selection[0];
+        }).catch((error) => console.log("Error: " + error.message));
     }
 
     takePicture() {
